@@ -27,7 +27,7 @@
     }
 
     .envelope-wrapper {
-      max-width: 850px;
+      max-width: 900px;
       width: 100%;
       cursor: pointer;
       filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
@@ -39,7 +39,7 @@
       background: linear-gradient(145deg, #1a2a6c, #000033);
       border-radius: 20px;
       box-shadow: 0 15px 0 #b8860b, 0 0 0 2px rgba(255,255,255,0.1) inset;
-      padding: 2.5rem 1.5rem;
+      padding: 2.5rem 1rem;
       position: relative;
       border: 3px solid #d4af37;
     }
@@ -54,11 +54,11 @@
       background-size: 200% auto;
       animation: shimmer 3s linear infinite;
       color: #000033;
-      padding: 10px 30px;
+      padding: 12px 35px;
       border-radius: 50px;
       display: inline-block;
       margin-bottom: 25px;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: bold;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
       letter-spacing: 2px;
@@ -99,13 +99,13 @@
     .card-inside {
       background: #fff;
       border-radius: 15px;
-      padding: 2rem;
+      padding: 2rem 1rem;
       transition: all 0.5s;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
       border: 4px double #d4af37;
     }
@@ -116,33 +116,60 @@
       pointer-events: none;
     }
 
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 750px;
+      margin-bottom: 2rem;
+    }
+
     .video-container {
       width: 100%;
-      max-width: 500px;
-      margin-bottom: 2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      border: 2px solid #C0C0C0; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      border: 3px solid #C0C0C0;
       background: #000;
+      line-height: 0;
     }
 
     .video-container video {
       width: 100%;
+      height: auto;
+      max-height: 60vh;
       display: block;
+      object-fit: contain;
+    }
+
+    .fs-btn {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: background 0.3s;
+      z-index: 20;
     }
 
     .message-box {
       background: #fdfdfd;
       border: 1px solid #e5e5e5;
-      border-left: 5px solid #d4af37;
-      padding: 2rem;
+      border-left: 6px solid #d4af37;
+      padding: 2.5rem 2rem;
       width: 100%;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+      max-width: 750px;
+      position: relative;
     }
 
     .message-box p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #1a2a6c;
       font-family: 'Georgia', serif;
       line-height: 1.8;
@@ -151,27 +178,33 @@
 
     .signature {
       display: block;
-      margin-top: 30px;
+      margin-top: 35px;
       text-align: right;
       font-style: italic;
       color: #b8860b;
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    .eighteen {
-      color: #b8860b;
-      font-weight: bold;
       font-size: 1.4rem;
-      text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+      font-weight: bold;
+      position: relative;
     }
 
-    .footer-names {
-      color: #b8860b;
-      margin-top: 15px;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
+    /* Sparkle Class */
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkleAnim 1s linear forwards;
     }
+
+    @keyframes sparkleAnim {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      100% { transform: scale(1.5) rotate(180deg) translateY(-20px); opacity: 0; }
+    }
+
+    .eighteen { color: #b8860b; font-weight: bold; font-size: 1.5rem; }
+    .footer-names { color: #b8860b; margin-top: 20px; font-size: 1rem; font-weight: bold; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
@@ -182,14 +215,16 @@
     <div class="envelope" id="envelope">
       <div class="flap-heart">✨💙✨</div>
       
-      <div class="card-inside">
-        <div class="bday-header">HAPPY BIRTHDAY</div>
+      <div class="card-inside" id="cardInside">
+        <div class="bday-header">HAPPY 18th BIRTHDAY</div>
         
-        <div class="video-container">
-          <video id="ezzaVideo" loop muted playsinline>
-            <source src="ezza.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+        <div class="video-wrapper">
+          <div class="video-container">
+            <video id="ezzaVideo" loop muted playsinline>
+              <source src="ezza.mp4" type="video/mp4">
+            </video>
+          </div>
+          <button class="fs-btn" id="fsBtn">⛶ FULLSCREEN</button>
         </div>
 
         <div class="message-box">
@@ -203,7 +238,7 @@
             Thank you for staying. Thank you for choosing to keep our friendship alive. Thank you for being one of the constants in my life.<br><br>
             Here’s to more memories, more late talks, more inside jokes, and more years of friendship. 🤍<br><br>
             Happy 18th, Ezza. Welcome to adulthood—the world and I is lucky to have you.<br><br>
-            <span class="signature">With sincerest love,<br>Kimi 🌸</span>
+            <span class="signature" id="signature">With sincerest love,<br>Kimi 🌸</span>
           </p>
         </div>
         <div class="footer-names">To Ezza | From Kimi</div>
@@ -243,9 +278,7 @@
         if (this.y > pCanvas.height) this.reset();
       }
       draw() {
-        pCtx.beginPath();
-        pCtx.lineWidth = this.size;
-        pCtx.strokeStyle = this.color;
+        pCtx.beginPath(); pCtx.lineWidth = this.size; pCtx.strokeStyle = this.color;
         pCtx.moveTo(this.x + this.tilt + this.size / 2, this.y);
         pCtx.lineTo(this.x + this.tilt, this.y + this.tilt + this.size / 2);
         pCtx.stroke();
@@ -265,18 +298,45 @@
     const wrapper = document.getElementById('envelopeWrapper');
     const audio = document.getElementById('bgMusic');
     const video = document.getElementById('ezzaVideo');
+    const fsBtn = document.getElementById('fsBtn');
+    const cardInside = document.getElementById('cardInside');
+    const signature = document.getElementById('signature');
 
-    wrapper.addEventListener('click', () => {
+    wrapper.addEventListener('click', (e) => {
+      if(e.target === fsBtn || e.target === video) return;
       const isOpen = envelope.classList.toggle('open');
       if (isOpen) {
-        audio.play().catch(e => console.log("Audio play blocked."));
-        video.play().catch(e => console.log("Video play blocked."));
+        audio.play().catch(e => {});
+        video.play().catch(e => {});
       } else {
         audio.pause();
         video.pause();
       }
     });
+
+    fsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (video.requestFullscreen) video.requestFullscreen();
+      else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+    });
+
+    // Sparkle Logic
+    function createSparkle() {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      const rect = signature.getBoundingClientRect();
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      signature.appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }
+
+    cardInside.addEventListener('scroll', () => {
+      if (cardInside.scrollTop + cardInside.clientHeight >= cardInside.scrollHeight - 20) {
+        for(let i=0; i<5; i++) setTimeout(createSparkle, i * 100);
+      }
+    });
   </script>
 </body>
-        </html>
-        
+  </html>
+  
