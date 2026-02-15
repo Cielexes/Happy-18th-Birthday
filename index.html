@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 18th Birthday, Ezza!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+      padding: 1rem;
+      overflow-x: hidden;
+    }
+
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper {
+      max-width: 850px;
+      width: 100%;
+      cursor: pointer;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+      z-index: 1;
+      transition: transform 0.3s;
+    }
+
+    .envelope {
+      background: linear-gradient(145deg, #1a2a6c, #000033);
+      border-radius: 20px;
+      box-shadow: 0 15px 0 #b8860b, 0 0 0 2px rgba(255,255,255,0.1) inset;
+      padding: 2.5rem 1.5rem;
+      position: relative;
+      border: 3px solid #d4af37;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .bday-header {
+      background: linear-gradient(90deg, #d4af37 0%, #f7ef8a 50%, #d4af37 100%);
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+      color: #000033;
+      padding: 10px 30px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 25px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      letter-spacing: 2px;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 5%;
+      width: 90%;
+      height: 80px;
+      background: #1a2a6c;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -8px 0 #b8860b;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      transition: transform 0.5s ease-in-out;
+      transform-origin: bottom;
+      z-index: 5;
+      border: 1px solid #d4af37;
+    }
+
+    .envelope.open::before { transform: rotateX(180deg) translateY(40px); }
+
+    .flap-heart {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.8rem;
+      z-index: 10;
+      transition: opacity 0.3s;
+      filter: drop-shadow(0 0 10px gold);
+    }
+
+    .envelope.open .flap-heart { opacity: 0; }
+
+    .card-inside {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      transition: all 0.5s;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 4px double #d4af37;
+    }
+
+    .envelope:not(.open) .card-inside {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border: 2px solid #C0C0C0; /* Silver border */
+      background: #000;
+    }
+
+    .video-container video {
+      width: 100%;
+      display: block;
+    }
+
+    .message-box {
+      background: #fdfdfd;
+      border: 1px solid #e5e5e5;
+      border-left: 5px solid #d4af37;
+      padding: 2rem;
+      width: 100%;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+    }
+
+    .message-box p {
+      font-size: 1.1rem;
+      color: #1a2a6c;
+      font-family: 'Georgia', serif;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .signature {
+      display: block;
+      margin-top: 30px;
+      text-align: right;
+      font-style: italic;
+      color: #b8860b;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .eighteen {
+      color: #b8860b;
+      font-weight: bold;
+      font-size: 1.4rem;
+      text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+    }
+
+    .footer-names {
+      color: #b8860b;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope" id="envelope">
+      <div class="flap-heart">✨💙✨</div>
+      
+      <div class="card-inside">
+        <div class="bday-header">HAPPY BIRTHDAY</div>
+        
+        <div class="video-container">
+          <video id="ezzaVideo" loop muted playsinline>
+            <source src="ezza.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="message-box">
+          <p>
+            Dear Ezza,<br><br>
+            Happy <span class="eighteen">18th Birthday!</span> 🤍<br><br>
+            Eighteen. Can you believe it? It feels like just yesterday we were Grade 9 students, still trying to figure out high school, when we first met. I never expected that meeting you would turn into a friendship that would last through the years HAHAHAHA even when life decided to put us in separate sections from Grade 10 to Grade 12.<br><br>
+            Even though we didn’t share the same classroom anymore, I’m so grateful that we never drifted apart. Distance, busy schedules, different classmates, none of it was strong enough to break what we built. And that’s something I will always treasure.<br><br>
+            You’ve grown so much since Grade 9. I’ve seen your strength, your kindness, your determination, and the way you care so genuinely about the people around you. You deserve every good thing that comes your way. As you step into adulthood, I hope you never lose the light that makes you you—your laughter, your ability to make others feel safe and understood.<br><br>
+            Turning 18 means new responsibilities, and new dreams waiting to be chased. I hope you’re not afraid of what’s ahead. You are capable, you are brave, and you are stronger than you think. Whatever path you choose, I’ll always be here cheering for you hehe<br><br>
+            Thank you for staying. Thank you for choosing to keep our friendship alive. Thank you for being one of the constants in my life.<br><br>
+            Here’s to more memories, more late talks, more inside jokes, and more
+  
